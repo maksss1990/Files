@@ -34,4 +34,9 @@ public class Image extends File {
 
         this.imageSize = imageSize;
     }
+
+    @Override
+    public String getDetails() {
+        return "image, " + imageSize;
+    }
 }

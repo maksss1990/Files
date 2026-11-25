@@ -11,9 +11,18 @@ public class VideoFile extends MediaFile {
         super(name, size, format, contentDescription, duration);
         setImageSize(imageSize);
     }
-    public ImageSize getImageSize() { return imageSize; }
+
+    public ImageSize getImageSize() {
+        return imageSize;
+    }
+
     public void setImageSize(ImageSize imageSize) {
         if (imageSize == null) throw new IllegalArgumentException("Размер картинки не может быть null");
         this.imageSize = imageSize;
+    }
+
+    @Override
+    public String getDetails() {
+        return "video, " + getContentDescription() + ", " + getDuration() + ", " + imageSize;
     }
 }

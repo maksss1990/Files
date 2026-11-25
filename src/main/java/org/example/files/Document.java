@@ -16,7 +16,7 @@ public class Document extends File {
         return format;
     }
 
-    public void setFormat(FileFormat  format) {
+    public void setFormat(FileFormat format) {
         if (format == null)
             throw new IllegalArgumentException("Формат не может быть null");
 
@@ -30,5 +30,10 @@ public class Document extends File {
     public void setPageCount(int pageCount) {
         if (pageCount < 1) throw new IllegalArgumentException("Количество страниц должно быть > 0");
         this.pageCount = pageCount;
+    }
+
+    @Override
+    public String getDetails() {
+        return format + ", " + pageCount + " pages";
     }
 }

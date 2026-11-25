@@ -9,38 +9,35 @@ public abstract class File {
         setSize(size);
     }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
+
     public void setName(String name) {
         if (name == null || name.isBlank())
             throw new IllegalArgumentException("Имя файла не может быть пустым");
         this.name = name;
     }
 
-    public long getSize() { return size; }
+    public long getSize() {
+        return size;
+    }
+
     public void setSize(long size) {
         if (size < 0)
             throw new IllegalArgumentException("Размер файла не может быть отрицательным");
         this.size = size;
     }
 
+    public abstract String getDetails();
+
     public static void printAll(File[] files) {
         System.out.println("        File name       |       Size      | Details");
         System.out.println("------------------------+-----------------+-------------------------");
 
         for (File f : files) {
-            String details = "";
 
-            if (f instanceof VideoFile v) {
-                details = "video, " + v.getContentDescription() + ", " + v.getDuration() + ", " + v.getImageSize();
-            } else if (f instanceof MediaFile m) {
-                details = "audio, " + m.getContentDescription() + ", " + m.getDuration();
-            } else if (f instanceof Image i) {
-                details = "image, " + i.getImageSize();
-            } else if (f instanceof Document d) {
-                details = d.getFormat() + ", " + d.getPageCount() + " pages";
-            }
-
-            System.out.printf("%-24s|%17d|%s%n", f.getName(), f.getSize(), details);
+            System.out.printf("%-24s|%17d|%s%n", f.getName(), f.getSize(), f.getDetails());
         }
     }
 }

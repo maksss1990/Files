@@ -6,6 +6,7 @@ import org.example.utils.Duration;
 import org.example.utils.ImageSize;
 
 import static org.example.enums.FileFormat.*;
+import static org.example.files.File.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,7 +18,7 @@ public class Main {
                         new Duration(1, 48, 8), new ImageSize(640, 352))
         };
 
-        File.printAll(files);
+        printAll(files);
 
         VideoFile[] videos = new VideoFile[] {
                 new VideoFile("1.mp4", 104_857_600, MP4, "Закат", new Duration(0, 2, 30), new ImageSize(1920, 1080)),
@@ -26,6 +27,13 @@ public class Main {
 
         System.out.println("\n=== Только видеофайлы ===");
 
-        File.printAll(videos);
+        /*
+        printAll может принимать на вход ссылку на объект класса VideoFile т.к.
+         если VideoFile является подтипом File то и VideoFile[] является подтипом File[]
+         и компилятор через ссылку видит поля класса File.
+         С помощью полиморфизма не смотря на то, что ссылка имеет тип родителя File, JVM во
+         время выполнения смотрит на реальный тип объекта в памяти и вызывает его версию getDetails()
+          */
+        printAll(videos);
     }
 }

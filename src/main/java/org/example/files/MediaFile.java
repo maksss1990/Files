@@ -43,4 +43,9 @@ public class MediaFile extends File {
         if (duration == null) throw new IllegalArgumentException("Длительность не может быть null");
         this.duration = duration;
     }
+
+    @Override
+    public String getDetails() {
+        return "audio, " + contentDescription + ", " + duration;
+    }
 }
