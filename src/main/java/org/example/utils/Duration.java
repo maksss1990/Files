@@ -6,12 +6,12 @@ public class Duration {
     private int seconds;
 
     public Duration(int hours, int minutes, int seconds) {
-        setHours(hours);
-        setMinutes(minutes);
-        setSeconds(seconds);
-        if (hours == 0 && minutes == 0 && seconds == 0) {
+        if (hours == 0 && minutes == 0 && seconds == 0)
             throw new IllegalArgumentException("Длительность должна быть больше нуля");
-        }
+
+        this.hours = validateHours(hours);
+        this.minutes = validateMinutes(minutes);
+        this.seconds = validateSeconds(seconds);
     }
 
     public int getHours() {
@@ -19,8 +19,7 @@ public class Duration {
     }
 
     public void setHours(int hours) {
-        if (hours < 0) throw new IllegalArgumentException("Часы не могут быть отрицательными");
-        this.hours = hours;
+        this.hours = validateHours(hours);
     }
 
     public int getMinutes() {
@@ -28,9 +27,7 @@ public class Duration {
     }
 
     public void setMinutes(int minutes) {
-        if (minutes < 0 || minutes > 59)
-            throw new IllegalArgumentException("Минуты должны быть в диапазоне 0..59");
-        this.minutes = minutes;
+        this.minutes = validateMinutes(minutes);
     }
 
     public int getSeconds() {
@@ -38,9 +35,28 @@ public class Duration {
     }
 
     public void setSeconds(int seconds) {
+        this.seconds = validateSeconds(seconds);
+    }
+
+    private int validateSeconds(int seconds) {
         if (seconds < 0 || seconds > 59)
             throw new IllegalArgumentException("Секунды должны быть в диапазоне 0..59");
-        this.seconds = seconds;
+
+        return seconds;
+    }
+
+    private int validateMinutes(int minutes) {
+        if (minutes < 0 || minutes > 59)
+            throw new IllegalArgumentException("Минуты должны быть в диапазоне 0..59");
+
+        return minutes;
+    }
+
+    private int validateHours(int hours) {
+        if (hours < 0)
+            throw new IllegalArgumentException("Часы не могут быть отрицательными");
+
+        return hours;
     }
 
     @Override

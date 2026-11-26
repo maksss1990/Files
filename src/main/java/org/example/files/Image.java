@@ -9,8 +9,8 @@ public class Image extends File {
 
     public Image(String name, long size, FileFormat format, ImageSize imageSize) {
         super(name, size);
-        setFormat(format);
-        setImageSize(imageSize);
+        this.format = validateFormat(format);
+        this.imageSize = validateImageSize(imageSize);
     }
 
     public FileFormat getFormat() {
@@ -18,10 +18,7 @@ public class Image extends File {
     }
 
     public void setFormat(FileFormat format) {
-        if (format == null)
-            throw new IllegalArgumentException("Формат не может быть null");
-
-        this.format = format;
+        this.format = validateFormat(format);
     }
 
     public ImageSize getImageSize() {
@@ -29,10 +26,21 @@ public class Image extends File {
     }
 
     public void setImageSize(ImageSize imageSize) {
+        this.imageSize = validateImageSize(imageSize);
+    }
+
+    private FileFormat validateFormat(FileFormat format) {
+        if (format == null)
+            throw new IllegalArgumentException("Формат не может быть null");
+
+        return format;
+    }
+
+    private ImageSize validateImageSize(ImageSize imageSize) {
         if (imageSize == null)
             throw new IllegalArgumentException("Размер изображения не может быть null");
 
-        this.imageSize = imageSize;
+        return imageSize;
     }
 
     @Override

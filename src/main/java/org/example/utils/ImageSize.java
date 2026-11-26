@@ -5,8 +5,8 @@ public class ImageSize {
     private int height;
 
     public ImageSize(int width, int height) {
-        setWidth(width);
-        setHeight(height);
+        this.width = validateWidth(width);
+        this.height = validateHeight(height);
     }
 
     public int getWidth() {
@@ -14,8 +14,7 @@ public class ImageSize {
     }
 
     public void setWidth(int width) {
-        if (width <= 0) throw new IllegalArgumentException("Ширина должна быть > 0");
-        this.width = width;
+        this.width = validateWidth(width);
     }
 
     public int getHeight() {
@@ -23,8 +22,21 @@ public class ImageSize {
     }
 
     public void setHeight(int height) {
-        if (height <= 0) throw new IllegalArgumentException("Высота должна быть > 0");
-        this.height = height;
+        this.height = validateHeight(height);
+    }
+
+    private int validateWidth(int width) {
+        if (width <= 0)
+            throw new IllegalArgumentException("Ширина должна быть > 0");
+
+        return width;
+    }
+
+    private int validateHeight(int height) {
+        if (height <= 0)
+            throw new IllegalArgumentException("Высота должна быть > 0");
+
+        return height;
     }
 
     @Override

@@ -8,8 +8,8 @@ public class Document extends File {
 
     public Document(String name, long size, FileFormat format, int pageCount) {
         super(name, size);
-        setFormat(format);
-        setPageCount(pageCount);
+        this.format = validateFormat(format);
+        this.pageCount = validatePageCount(pageCount);
     }
 
     public FileFormat getFormat() {
@@ -17,10 +17,7 @@ public class Document extends File {
     }
 
     public void setFormat(FileFormat format) {
-        if (format == null)
-            throw new IllegalArgumentException("Формат не может быть null");
-
-        this.format = format;
+        this.format = validateFormat(format);
     }
 
     public int getPageCount() {
@@ -28,8 +25,21 @@ public class Document extends File {
     }
 
     public void setPageCount(int pageCount) {
-        if (pageCount < 1) throw new IllegalArgumentException("Количество страниц должно быть > 0");
-        this.pageCount = pageCount;
+        this.pageCount = validatePageCount(pageCount);
+    }
+
+    private FileFormat validateFormat(FileFormat format) {
+        if (format == null)
+            throw new IllegalArgumentException("Формат не может быть null");
+
+        return format;
+    }
+
+    private int validatePageCount(int pageCount) {
+        if (pageCount < 1)
+            throw new IllegalArgumentException("Количество страниц должно быть > 0");
+
+        return pageCount;
     }
 
     @Override

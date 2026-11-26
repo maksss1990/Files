@@ -10,9 +10,9 @@ public class MediaFile extends File {
 
     public MediaFile(String name, long size, FileFormat format, String contentDescription, Duration duration) {
         super(name, size);
-        setFormat(format);
-        setContentDescription(contentDescription);
-        setDuration(duration);
+        this.format = validateFormat(format);
+        this.contentDescription = validateContentDescription(contentDescription);
+        this.duration = validateDuration(duration);
     }
 
     public FileFormat getFormat() {
@@ -20,10 +20,7 @@ public class MediaFile extends File {
     }
 
     public void setFormat(FileFormat format) {
-        if (format == null)
-            throw new IllegalArgumentException("Формат не может быть null");
-
-        this.format = format;
+        this.format = validateFormat(format);
     }
 
     public String getContentDescription() {
@@ -31,8 +28,7 @@ public class MediaFile extends File {
     }
 
     public void setContentDescription(String contentDescription) {
-        if (contentDescription == null) throw new IllegalArgumentException("Описание контента не может быть null");
-        this.contentDescription = contentDescription;
+        this.contentDescription = validateContentDescription(contentDescription);
     }
 
     public Duration getDuration() {
@@ -40,8 +36,28 @@ public class MediaFile extends File {
     }
 
     public void setDuration(Duration duration) {
-        if (duration == null) throw new IllegalArgumentException("Длительность не может быть null");
-        this.duration = duration;
+        this.duration = validateDuration(duration);
+    }
+
+    private Duration validateDuration(Duration duration) {
+        if (duration == null)
+            throw new IllegalArgumentException("Длительность не может быть null");
+
+        return duration;
+    }
+
+    private String validateContentDescription(String contentDescription) {
+        if (contentDescription == null || contentDescription.isBlank())
+            throw new IllegalArgumentException("Описание контента не может быть null");
+
+        return contentDescription;
+    }
+
+    private FileFormat validateFormat(FileFormat format) {
+        if (format == null)
+            throw new IllegalArgumentException("Формат не может быть null");
+
+        return format;
     }
 
     @Override

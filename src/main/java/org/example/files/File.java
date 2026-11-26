@@ -5,8 +5,8 @@ public abstract class File {
     private long size;
 
     protected File(String name, long size) {
-        setName(name);
-        setSize(size);
+        this.name = validateName(name);
+        this.size = validateSize(size);
     }
 
     public String getName() {
@@ -14,9 +14,7 @@ public abstract class File {
     }
 
     public void setName(String name) {
-        if (name == null || name.isBlank())
-            throw new IllegalArgumentException("Имя файла не может быть пустым");
-        this.name = name;
+        this.name = validateName(name);
     }
 
     public long getSize() {
@@ -24,12 +22,24 @@ public abstract class File {
     }
 
     public void setSize(long size) {
-        if (size < 0)
-            throw new IllegalArgumentException("Размер файла не может быть отрицательным");
-        this.size = size;
+        this.size = validateSize(size);
     }
 
     public abstract String getDetails();
+
+    private String validateName(String name) {
+        if (name == null || name.isBlank())
+            throw new IllegalArgumentException("Имя файла не может быть пустым");
+
+        return name;
+    }
+
+    private long validateSize(long size) {
+        if (size < 0)
+            throw new IllegalArgumentException("Размер файла не может быть отрицательным");
+
+        return size;
+    }
 
     public static void printAll(File[] files) {
         System.out.println("        File name       |       Size      | Details");

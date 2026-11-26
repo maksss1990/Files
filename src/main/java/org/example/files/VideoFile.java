@@ -9,7 +9,7 @@ public class VideoFile extends MediaFile {
 
     public VideoFile(String name, long size, FileFormat format, String contentDescription, Duration duration, ImageSize imageSize) {
         super(name, size, format, contentDescription, duration);
-        setImageSize(imageSize);
+        this.imageSize = validateImageSize(imageSize);;
     }
 
     public ImageSize getImageSize() {
@@ -17,8 +17,14 @@ public class VideoFile extends MediaFile {
     }
 
     public void setImageSize(ImageSize imageSize) {
-        if (imageSize == null) throw new IllegalArgumentException("Размер картинки не может быть null");
-        this.imageSize = imageSize;
+        this.imageSize = validateImageSize(imageSize);
+    }
+
+    private ImageSize validateImageSize(ImageSize imageSize) {
+        if (imageSize == null)
+            throw new IllegalArgumentException("Размер изображения не может быть null");
+
+        return imageSize;
     }
 
     @Override
